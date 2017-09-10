@@ -9,9 +9,16 @@
 
 CHIP HalfAdder {
     IN a, b;    // 1-bit inputs
-    OUT sum,    // Right bit of a + b 
+    OUT sum,    // Right bit of a + b
         carry;  // Left bit of a + b
+    // a   b   sum   carry   not(a Nand b)   a Xor b
+    // 0   0   0     0       0               0
+    // 0   1   1     0       0               1
+    // 1   0   1     0       0               1
+    // 1   1   0     1       1               0
 
     PARTS:
-    // Put you code here:
+    Nand(a=a, b=b, out=notcarry);
+    Not(in=notcarry, out=carry);
+    Xor(a=a, b=b, out=sum);
 }
